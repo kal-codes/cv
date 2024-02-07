@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/command";
 import { Button } from "./ui/button";
 import { CommandIcon } from "lucide-react";
+import { Sheet, SheetTrigger } from "./ui/sheet";
+import { AgentChat } from "./ui/agent-chat";
 
 interface Props {
   links: { url: string; title: string }[];

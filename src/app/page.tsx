@@ -8,6 +8,12 @@ import { GlobeIcon, MailIcon, PhoneIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { RESUME_DATA } from "@/data/resume-data";
 import { ProjectCard } from "@/components/project-card";
+import {
+  Sheet,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+import { AgentChat } from "@/components/ui/agent-chat";
+import { RocketIcon } from '@radix-ui/react-icons';
 
 export const metadata: Metadata = {
   title: `${RESUME_DATA.name} | ${RESUME_DATA.about}`,
@@ -184,7 +190,14 @@ export default function Page() {
           </div>
         </Section>
       </section>
-
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button variant="outline" className="fixed bottom-4 right-4 z-50">
+            <RocketIcon />
+          </Button>
+        </SheetTrigger>
+        <AgentChat />
+      </Sheet>
       <CommandMenu
         links={[
           // {
