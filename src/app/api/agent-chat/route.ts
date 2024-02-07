@@ -36,7 +36,7 @@ export async function POST(request: Request) {
     const latestAssistantMessage = messages.data.filter(msg => msg.role === "assistant").pop();
 
     if (!latestAssistantMessage || !latestAssistantMessage.content.length) {
-      return "No response from assistant.";
+      return new Response("No response from assistant.", { status: 200 });
     }
 
     // Extract the text from the latest message
