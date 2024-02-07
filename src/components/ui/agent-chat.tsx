@@ -18,7 +18,8 @@ export const AgentChat = () => {
   const [userInput, setUserInput] = useState<string>('');
 
   const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY
+    apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY, 
+    dangerouslyAllowBrowser: true
   });
 
   const sendMessage = async () => {
@@ -51,7 +52,7 @@ export const AgentChat = () => {
       });
 
       const runCreationResponse = await openai.beta.threads.runs.create(thread.id, {
-        assistant_id: process.env.OPENAI_ASSISTANT_ID!,
+        assistant_id: process.env.NEXT_PUBLIC_OPENAI_ASSISTANT_ID!,
       });
   
       // Initial check for the run status
