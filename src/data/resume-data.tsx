@@ -20,259 +20,132 @@ import {
 import { GitHubIcon, LinkedInIcon, XIcon } from "@/components/icons";
 
 export const RESUME_DATA = {
-  name: "Bartosz Jarocki",
-  initials: "BJ",
-  location: "Wrocław, Poland, CET",
-  locationLink: "https://www.google.com/maps/place/Wrocław",
+  name: "Kyle Voisard",
+  initials: "KV",
+  location: "Charlotte, North Carolina, USA",
+  locationLink: "https://www.google.com/maps/place/Charlotte+NC",
   about:
-    "Full Stack Engineer focused on building products with extra attention to detail",
+    "Versatile Full Stack Engineer and CTO crafting impactful consumer software products with a focus on innovative user experiences.",
   summary:
-    "As a Full Stack Engineer, I have successfully taken multiple products from 0 to 1. I lead teams effectively, ensuring an environment where people can do their best work. Currently, I work mostly with TypeScript, React, Node.js, and GraphQL. I have over 8 years of experience in working remotely with companies all around the world.",
-  avatarUrl: "https://avatars.githubusercontent.com/u/1017620?v=4",
-  personalWebsiteUrl: "https://jarocki.me",
+    "As CTO at FarOut Guides, my focus is on amplifying our small team by pioneering solutions and steering technological innovation to enhance the outdoor experiences of our users. My decade in tech has seen me transition from engineering in large corporations, with teams of hundreds, to setting the technological direction of a lean company serving hundreds of thousands of users globally. This journey has honed my ability to lead with a team-first, solution-oriented approach, emphasizing scalable product development and fostering innovation across diverse team sizes and company cultures.",
+  avatarUrl: "https://faroutguides.com/wp-content/uploads/2021/10/image-3-2-e1634571453191-468x468.png",
+  personalWebsiteUrl: "",
   contact: {
-    email: "bartosz.jarocki@hey.com",
-    tel: "+48530213401",
+    email: "KVoisard@gmail.com",
+    tel: "+15135059380",
     social: [
       {
-        name: "GitHub",
-        url: "https://github.com/BartoszJarocki",
-        icon: GitHubIcon,
-      },
-      {
         name: "LinkedIn",
-        url: "https://www.linkedin.com/in/bjarocki/",
+        url: "https://www.linkedin.com/in/",
         icon: LinkedInIcon,
-      },
-      {
-        name: "X",
-        url: "https://x.com/BartoszJarocki",
-        icon: XIcon,
       },
     ],
   },
   education: [
     {
-      school: "Wrocław University of Technology",
-      degree: "Bachelor's Degree in Control systems engineering and Robotics",
-      start: "2007",
-      end: "2010",
+      school: "The Ohio State University",
+      degree: "B.S. Computer Science and Engineering",
+      start: "2010",
+      end: "2014",
     },
   ],
   work: [
     {
-      company: "Parabol",
-      link: "https://parabol.co",
-      badges: ["Remote"],
-      title: "Senior Full Stack Developer",
-      logo: ParabolLogo,
-      start: "2021",
-      end: "2024",
+      company: "FarOut Guides",
+      link: "https://faroutguides.com",
+      badges: ["Hybrid"],
+      title: "Principal Engineer → Chief Technology Officer",
+      logo: "",
+      start: "2019",
+      end: "Present",
       description:
-        "Implemented new features, led squad, worked on improving the way developers ship the code, started migration from Emotion to Tailwind CSS and more. Technologies: React, TypeScript, GraphQL",
+        "Lead company technical direction, development and maintenance of all distribution platforms (iOS, Android, Web App), and oversee hiring and delivery of development teams. Regularly pitch projects and execute from idea to implementation.",
     },
     {
-      company: "Clevertech",
-      link: "https://clevertech.biz",
-      badges: ["Remote"],
-      title: "Lead Android Developer → Full Stack Developer",
-      logo: ClevertechLogo,
-      start: "2015",
-      end: "2021",
-      description:
-        "Created Android mobile apps and led teams for companies like Vision Media, DKMS, or AAA. Built live streaming application for Evercast from scratch. Technologies: Android, Kotlin, React, TypeScript, GraphQL",
-    },
-    {
-      company: "Jojo Mobile",
-      link: "https://bsgroup.eu/",
+      company: "Nationwide Insurance",
+      link: "https://multiproduct.nationwide.com/multi-quote/getting-started",
       badges: [],
-      title: "Android Developer → Lead Android Developer",
-      logo: JojoMobileLogo,
-      start: "2012",
-      end: "2015",
+      title: "Intern → Junior Developer → Senior Developer",
+      logo: "",
+      start: "2013",
+      end: "2019",
       description:
-        "Built an Android team, created Android apps for biggest Polish companies like LOT, Polskie Radio, Agora, PolskaPress",
+        "Grew from fresh college graduate to team lead thanks to mentors and collegues. Worked on diverse systems from legacy mainframe interfaces to (at the time) cutting edge JS frameworks. Successfully pitched and lead a small team to create an iOS companion app for our mainline sales product. Awarded CEO Outstanding Contribution.",
     },
     {
-      company: "Nokia Siemens Networks",
-      link: "https://www.nokia.com",
+      company: "Arch City Tavern",
+      link: "https://archcitytavern.com",
       badges: [],
-      title: "C/C++ Developer",
-      logo: NSNLogo,
-      start: "2010",
-      end: "2012",
-      description: "Creating and testing software for LTE base stations",
+      title: "Web Solutions Developer",
+      logo: "",
+      start: "2013",
+      end: "2014",
+      description:
+        "Consulted on digital strategy and developed a custom website, managing all aspects from design to maintenance. Successfully crafted and implemented the company's digital presence, enhancing the tavern's online image and customer engagement.",
     },
   ],
   skills: [
-    "JavaScript",
+    "Swift",
+    "SwiftUI",
     "TypeScript",
-    "React/Next.js/Remix",
+    "JavaScript",
+    "Java",
+    "React",
+    "Next.js",
     "Node.js",
-    "GraphQL",
-    "Relay",
-    "WebRTC",
+    "AWS",
+    "Vercel",
+    "Supabase",
   ],
   projects: [
     {
-      title: "Consultly",
+      title: "NanoCast",
       techStack: [
         "Side Project",
-        "TypeScript",
         "Next.js",
-        "Vite",
-        "GraphQL",
-        "WebRTC",
-      ],
-      description: "A platform to build and grow your online business",
-      logo: ConsultlyLogo,
-      link: {
-        label: "consultly.com",
-        href: "https://consultly.com/",
-      },
-    },
-    {
-      title: "Monito",
-      techStack: ["Side Project", "TypeScript", "Next.js", "Browser Extension"],
-      description:
-        "Browser extension that records everything happening in a web application",
-      logo: MonitoLogo,
-      link: {
-        label: "monito.dev",
-        href: "https://monito.dev/",
-      },
-    },
-    {
-      title: "Jarocki.me",
-      techStack: ["Side Project", "Next.js", "MDX"],
-      description:
-        "My personal website and blog. Built with Next.js and Notion API",
-      logo: JarockiMeLogo,
-      link: {
-        label: "github.com",
-        href: "https://jarocki.me/",
-      },
-    },
-    {
-      title: "Minimal",
-      techStack: ["Side Project", "Next.js", "Puppeteer"],
-      description:
-        "Minimalist calendars, habit trackers and planners generator",
-      logo: Minimal,
-      link: {
-        label: "useminimal.com",
-        href: "https://useminimal.com/",
-      },
-    },
-    {
-      title: "Barepapers",
-      techStack: ["Side Project", "Next.js", "Puppeteer"],
-      description:
-        "Generates beautiful wallpapers using random shapes and gradients",
-      logo: BarepapersLogo,
-      link: {
-        label: "barepapers.com",
-        href: "https://barepapers.com/",
-      },
-    },
-    {
-      title: "Year progress",
-      techStack: ["Side Project", "TypeScript", "Next.js"],
-      description: "Tracks current year progress and displays a countdown",
-      logo: YearProgressLogo,
-      link: {
-        label: "getyearprogress.com",
-        href: "https://getyearprogress.com/",
-      },
-    },
-    {
-      title: "Parabol",
-      techStack: [
-        "Full Stack Developer",
-        "TypeScript",
-        "React",
         "Node.js",
-        "GraphQL",
+        "Vercel",
+        "Supabase",
+        "OpenAI",
       ],
       description:
-        "The Agile meeting co-pilot that delivers better meetings with less effort",
-      logo: ParabolLogo,
+        "Consumer product that creates a personalized weekly news brief based on user’s interests delivered in podcast format.",
+      logo: "https://www.nanocast.ai/_next/static/media/cover_photo.aa1e6834.png",
       link: {
-        label: "github.com",
-        href: "https://parabol.co/",
+        label: "nanocast.ai",
+        href: "https://nanocast.ai/",
       },
     },
     {
-      title: "Evercast",
+      title: "Usher",
       techStack: [
-        "Lead Frontend Developer",
-
-        "TypeScript",
-        "React",
-        "Node.js",
-        "GraphQL",
+        "Side Project",
+        "Swift",
+        "SwiftUI",
+        "Pinecone Vector Database",
+        "OpenAI",
       ],
       description:
-        "Creative collaboration platform that combines video conferencing and HD media streaming",
-      logo: EvercastLogo,
+        "iOS chatbot with RAG capabilities to help baseball fans navigate their gameday activities.",
+      logo: "",
       link: {
-        label: "evercast.us",
-        href: "https://www.evercast.us/",
+        label: "Usher",
+        href: "https://apps.apple.com/in/app/usherai/id6447387944",
       },
     },
     {
-      title: "Mobile Vikings",
-      techStack: ["Lead Android Developer", "Android", "Kotlin"],
+      title: "Brief Kinesthesia Test",
+      techStack: [
+        "Capstone Project",
+        "Java",
+      ],
       description:
-        "Android application for leading virtual mobile operator in Poland",
-      logo: MobileVikingsLogo,
+        "Android app  used by hospital researchers to gauge stroke patients’ kinesthetic degradation. Created in partnership with The Ohio State James hospital researchers.",
+      logo: "",
       link: {
-        label: "mobilevikings.pl",
-        href: "https://mobilevikings.pl/",
+        label: "BKT",
+        href: "",
       },
-    },
-    {
-      title: "Howdy",
-      techStack: ["Lead Android Developer", "Android", "Kotlin"],
-      description:
-        "Howdy is a place for you to join communities you care about",
-      logo: Howdy,
-      link: {
-        label: "play.google.com",
-        href: "https://howdy.co/",
-      },
-    },
-    {
-      title: "Tastycloud",
-      techStack: ["Lead Android Developer", "Android", "Kotlin"],
-      description:
-        "Android application for managing and displaying restaurant menus in kiosk mode",
-      logo: TastyCloudLogo,
-      link: {
-        label: "tastycloud.fr",
-        href: "https://www.tastycloud.fr/",
-      },
-    },
-    {
-      title: "Ambit",
-      techStack: ["Lead Android Developer", "Android", "Kotlin"],
-      description:
-        "Android application that helps with sharing your contact details",
-      logo: AmbitLogo,
-    },
-    {
-      title: "Bim",
-      techStack: ["Lead Android Developer", "Android", "Kotlin"],
-      description:
-        "Android application that helps with booking a table in a restaurants",
-      logo: BimLogo,
-    },
-    {
-      title: "Canal Digital GO",
-      techStack: ["Lead Android Developer", "Android", "Kotlin"],
-      description:
-        "Video streaming mobile application for Canal Digital subscribers",
-      logo: CDGOLogo,
     },
   ],
 } as const;
