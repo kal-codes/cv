@@ -7,10 +7,6 @@ import { Input } from "@/components/ui/input";
 import { ArrowUpIcon } from '@radix-ui/react-icons';
 import { OpenAI } from "openai";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-});
-
 interface IMessage {
   text: string;
   fromUser: boolean;
@@ -20,6 +16,10 @@ export const AgentChat = () => {
   const [isAssistantThinking, setIsAssistantThinking] = useState(false);
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [userInput, setUserInput] = useState<string>('');
+
+  const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
+  });
 
   const sendMessage = async () => {
     if (!userInput.trim()) return;
