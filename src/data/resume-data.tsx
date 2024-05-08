@@ -78,9 +78,10 @@ export const RESUME_DATA = {
     "Vercel",
     "Supabase",
     "Serverless",
+    "AI/ML",
     "Fine-Tuning",
     "Embeddings",
-    "MLOps",
+    "RAG",
   ],
   projects: [
     {
