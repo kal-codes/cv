@@ -1,58 +1,68 @@
-import { OpenAI } from 'openai';
+import { AssistantResponse } from 'ai';
+import OpenAI from 'openai';
 
-export const dynamic = 'force-dynamic'
-export const maxDuration = 300;
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY || '',
+});
 
-export async function POST(request: Request) {
-  const body = await request.json();
-  const userInput = body.userInput;
+// Allow streaming responses up to 30 seconds
+export const maxDuration = 30;
 
-  const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
+export async function POST(req: Request) {
+  // Parse the incoming JSON body
+  const input: { threadId: string | null; message: string } = await req.json();
+
+  // Create a new thread if one wasn’t provided
+  const threadId =
+    input.threadId ?? (await openai.beta.threads.create({})).id;
+
+  // Add the user's message to the thread
+  const createdMessage = await openai.beta.threads.messages.create(threadId, {
+    role: 'user',
+    content: input.message,
   });
 
-  try {
-    const thread = await openai.beta.threads.create();
-    await openai.beta.threads.messages.create(thread.id, {
-      role: "user",
-      content: userInput
-    });
+  return AssistantResponse(
+    { threadId, messageId: createdMessage.id },
+    async ({ forwardStream, sendDataMessage }) => {
+      // Stream the run for the assistant. The assistant_id must be set in your environment.
+      const runStream = openai.beta.threads.runs.stream(threadId, {
+        assistant_id:
+          process.env.OPENAI_ASSISTANT_ID ??
+          (() => {
+            throw new Error('OPENAI_ASSISTANT_ID is not set');
+          })(),
+      });
 
-    const runCreationResponse = await openai.beta.threads.runs.create(thread.id, {
-      assistant_id: process.env.OPENAI_ASSISTANT_ID!,
-    });
+      // Forward run status events (e.g. message deltas) to the client
+      let runResult = await forwardStream(runStream);
 
-    let runStatus = runCreationResponse.status;
-    while (runStatus !== "completed") {
-      const runStatusResponse = await openai.beta.threads.runs.retrieve(thread.id, runCreationResponse.id);
-      runStatus = runStatusResponse.status;
+      // If the run requires a tool action, process it and forward the response
+      while (
+        runResult?.status === 'requires_action' &&
+        runResult.required_action?.type === 'submit_tool_outputs'
+      ) {
+        const tool_outputs = runResult.required_action.submit_tool_outputs.tool_calls.map(
+          (toolCall: any) => {
+            const parameters = JSON.parse(toolCall.function.arguments);
+            // Add any tool-specific handling here. For now, we throw on unknown functions.
+            switch (toolCall.function.name) {
+              default:
+                throw new Error(
+                  `Unknown tool call function: ${toolCall.function.name}`
+                );
+            }
+          }
+        );
 
-      if (runStatus === "completed") {
-        break;
+        runResult = await forwardStream(
+          openai.beta.threads.runs.submitToolOutputsStream(
+            threadId,
+            runResult.id,
+            { tool_outputs }
+          )
+        );
       }
-
-      // Wait before polling again to avoid hitting the rate limit
-      await new Promise(resolve => setTimeout(resolve, 3000)); // 3 second delay
     }
-
-    const messages = await openai.beta.threads.messages.list(thread.id);
-    const latestAssistantMessage = messages.data.filter(msg => msg.role === "assistant").pop();
-
-    if (!latestAssistantMessage || !latestAssistantMessage.content.length) {
-      return new Response("No response from assistant.", { status: 200 });
-    }
-
-    // Extract the text from the latest message
-    const latestTextContent = latestAssistantMessage.content.find(content => content.type === 'text') as OpenAI.Beta.Threads.Messages.MessageContentText;
-
-    return new Response(JSON.stringify({ response: latestTextContent ? latestTextContent.text.value : "No text response found." }), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-  } catch (error) {
-    console.error("Error calling OpenAI Assistants API:", error);
-    return new Response("I'm sorry, but I couldn't fetch a response. Please try again.", { status: 500 });
-  }
+  );
 }

@@ -1,117 +1,16 @@
-'use client'
+'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { ArrowUpIcon } from '@radix-ui/react-icons';
-
-interface IMessage {
-  text: string;
-  fromUser: boolean;
-}
+import { Message, useAssistant } from '@ai-sdk/react';
 
 export const AgentChat = () => {
-  const [isAssistantThinking, setIsAssistantThinking] = useState(false);
-  const [messages, setMessages] = useState<IMessage[]>([]);
-  const [userInput, setUserInput] = useState<string>('');
-
-  const sendMessage = async () => {
-    if (!userInput.trim()) return;
-    
-    setIsAssistantThinking(true);
-
-    const userMessage: IMessage = { text: userInput, fromUser: true };
-    setMessages(prevMessages => [...prevMessages, userMessage]);
-    setUserInput('');
-
-    const agentResponse = await getAgentResponse(userInput);
-
-    setIsAssistantThinking(false);
-    setMessages(prevMessages => [...prevMessages, { text: agentResponse, fromUser: false }]);
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserInput(e.target.value);
-  };
-
-  const getAgentResponse = async (userInput: string): Promise<string> => {
-    setIsAssistantThinking(true);
-  
-    console.log('Sending chat message:', userInput);
-    
-    const response = await fetch('/api/agent-chat', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ userInput }),
-    });
-  
-    const { response: agentResponse } = await response.json();
-  
-    setIsAssistantThinking(false);
-  
-    return agentResponse;
-  };
-  
-
-  // const getAgentResponse = async (userInput: string): Promise<string> => {
-  //   try {
-  //     // Create a thread for the conversation (this could be moved outside this function if you manage threads at a higher level)
-  //     const thread = await openai.beta.threads.create();
-  //     // Add the user's message to the thread
-  //     await openai.beta.threads.messages.create(thread.id, {
-  //       role: "user",
-  //       content: userInput
-  //     });
-
-  //     const runCreationResponse = await openai.beta.threads.runs.create(thread.id, {
-  //       assistant_id: process.env.NEXT_PUBLIC_OPENAI_ASSISTANT_ID!,
-  //     });
-  
-  //     // Initial check for the run status
-  //     let runStatus = runCreationResponse.status;
-  
-  //     // Polling for run status
-  //     while (runStatus !== "completed") {
-  //       const runStatusResponse = await openai.beta.threads.runs.retrieve(
-  //         thread.id,
-  //         runCreationResponse.id
-  //       );
-  //       runStatus = runStatusResponse.status;
-        
-  //       if (runStatus === "completed") {
-  //         break;
-  //       }
-  
-  //       // Wait before polling again to avoid hitting the rate limit
-  //       await new Promise(resolve => setTimeout(resolve, 3000)); // 3 second delay
-  //     }
-  
-  //     // Assuming immediate completion, retrieve the messages added by the assistant
-  //     const messages = await openai.beta.threads.messages.list(thread.id);
-  
-  //     // Assuming we only deal with the latest message and it could be of type text
-  //   const latestAssistantMessage = messages.data.filter(msg => msg.role === "assistant").pop();
-
-  //   console.log('messages', messages);
-
-  //   if (!latestAssistantMessage || !latestAssistantMessage.content.length) {
-  //     return "No response from assistant.";
-  //   }
-
-  //   // Extract the text from the latest message
-  //   const latestTextContent = latestAssistantMessage.content.find(content => content.type === 'text') as OpenAI.Beta.Threads.Messages.MessageContentText;
-
-  //   // Return the text part of the message
-  //   return latestTextContent ? latestTextContent.text.value : "No text response found.";
-  //   } catch (error) {
-  //     console.error("Error calling OpenAI Assistants API:", error);
-  //     return "I'm sorry, but I couldn't fetch a response. Please try again.";
-  //   }
-  // };
-  
+  // useAssistant handles input state, submission, and streaming responses.
+  const { status, messages, input, submitMessage, handleInputChange } =
+    useAssistant({ api: '/api/agent-chat' });
 
   return (
     <SheetContent>
@@ -119,28 +18,62 @@ export const AgentChat = () => {
         <SheetTitle>Chat with my agent</SheetTitle>
       </SheetHeader>
       <div className="flex flex-col h-full">
-        <div className="flex-grow overflow-auto p-4">
-          {messages.map((message, index) => (
-            <div key={index} className={`message mt-5 ${message.fromUser ? 'text-right' : 'text-left'}`}>
-              <div className={`inline-block p-2 rounded-lg ${message.fromUser ? 'bg-blue-100' : 'bg-gray-200'}`}>
-                {message.text}
+        {/* Message area */}
+        <div className="flex-grow overflow-auto p-4 space-y-4">
+          {messages.map((m: Message) => (
+            <div
+              key={m.id}
+              className={`message mt-5 ${
+                m.role === 'user' ? 'text-right' : 'text-left'
+              }`}
+            >
+              <div
+                className={`inline-block p-2 rounded-lg ${
+                  m.role === 'user' ? 'bg-blue-100' : 'bg-gray-200'
+                }`}
+              >
+                {m.role !== 'data' && m.content}
+                {m.role === 'data' && (
+                  <>
+                    {(m.data as any)?.description}
+                    <br />
+                    <pre className="bg-gray-200 p-2 rounded">
+                      {JSON.stringify(m.data, null, 2)}
+                    </pre>
+                  </>
+                )}
               </div>
             </div>
           ))}
-        </div>
-        <div className="p-4 flex">
-            <Input
-                value={userInput}
-                onChange={handleInputChange}
-                placeholder="Type your message..."
-                className="flex-grow mr-2"
-                disabled={isAssistantThinking}
-            />
-            <Button onClick={sendMessage} className="flex items-center justify-center" disabled={isAssistantThinking}>
-                <ArrowUpIcon />
-            </Button>
+          {status === 'in_progress' && (
+            <div className="text-left italic text-gray-500">
+              Assistant is thinking…
             </div>
+          )}
+        </div>
+        {/* Input area */}
+        <form
+          onSubmit={submitMessage}
+          className="p-4 flex items-center space-x-2"
+        >
+          <Input
+            value={input}
+            onChange={handleInputChange}
+            placeholder="Type your message..."
+            className="flex-grow"
+            disabled={status !== 'awaiting_message'}
+          />
+          <Button
+            type="submit"
+            className="flex items-center justify-center"
+            disabled={status !== 'awaiting_message'}
+          >
+            <ArrowUpIcon />
+          </Button>
+        </form>
       </div>
     </SheetContent>
   );
 };
+
+export default AgentChat;
