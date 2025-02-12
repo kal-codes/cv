@@ -85,7 +85,25 @@ export const RESUME_DATA = {
   ],
   projects: [
     {
-      title: "NanoCast",
+      title: "NanoCast Mobile",
+      techStack: [
+        "Side Project",
+        "SwiftUI",
+        "ShareExtension",
+        "SwiftData",
+        "AppGroups",
+        "CloudKit",
+      ],
+      description:
+        "A simple read it later app (for now).",
+      logo: "",
+      link: {
+        label: "App Store",
+        href: "https://apps.apple.com/us/app/nanocast/id6740733495",
+      },
+    },
+    {
+      title: "NanoCast Web",
       techStack: [
         "Side Project",
         "Next.js",
