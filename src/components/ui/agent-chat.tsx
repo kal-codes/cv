@@ -47,7 +47,7 @@ export const AgentChat = () => {
           ))}
           {status === 'in_progress' && (
             <div className="text-left italic text-gray-500">
-              Assistant is thinking…
+              Agent is thinking…
             </div>
           )}
         </div>
