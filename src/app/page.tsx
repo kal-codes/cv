@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/sheet"
 import { AgentChat } from "@/components/ui/agent-chat";
 import { RocketIcon } from '@radix-ui/react-icons';
+import React, { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: `${RESUME_DATA.name} | ${RESUME_DATA.about}`,
@@ -182,12 +183,14 @@ export default function Page() {
               const id = post.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
               return (
                 <div key={post.title}>
-                  <PostDialog 
-                    title={post.title}
-                    url={post.url}
-                    date={post.date}
-                    id={id}
-                  />
+                  <Suspense fallback={<div className="p-4 border rounded-lg">Loading post...</div>}>
+                    <PostDialog 
+                      title={post.title}
+                      url={post.url}
+                      date={post.date}
+                      id={id}
+                    />
+                  </Suspense>
                 </div>
               );
             })}
