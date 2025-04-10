@@ -9,13 +9,13 @@ interface Post {
 export const RESUME_DATA = {
   name: "Kyle Voisard",
   initials: "KV",
-  location: "Charlotte, North Carolina, USA",
-  locationLink: "https://www.google.com/maps/place/Charlotte+NC",
+  location: "Denver, Colorado, USA",
+  locationLink: "https://www.google.com/maps/place/Denver+CO",
   about:
     "Versatile Full Stack Engineer and CTO crafting impactful consumer software products with a focus on innovative user experiences.",
   summary:
     "As CTO at FarOut Guides, my focus is on amplifying our small team by pioneering solutions and steering technological innovation to enhance the outdoor experiences of our users. My decade in tech has seen me transition from engineering in large corporations, with teams of hundreds, to setting the technological direction of a lean company serving hundreds of thousands of users globally. This journey has honed my ability to lead with a team-first, solution-oriented approach, emphasizing scalable product development and fostering innovation across diverse team sizes and company cultures.",
-  avatarUrl: "https://faroutguides.com/wp-content/uploads/2021/10/image-3-2-e1634571453191-468x468.png",
+  avatarUrl: "/images/headshot.png",
   personalWebsiteUrl: "",
   contact: {
     email: "KVoisard@gmail.com",
