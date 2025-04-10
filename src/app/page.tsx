@@ -1,13 +1,14 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CommandMenu } from "@/components/command-menu";
 import { Metadata } from "next";
 import { Section } from "@/components/ui/section";
-import { GlobeIcon, MailIcon, PhoneIcon } from "lucide-react";
+import { GlobeIcon, MailIcon, PhoneIcon, ExternalLinkIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { RESUME_DATA } from "@/data/resume-data";
 import { ProjectCard } from "@/components/project-card";
+import { PostDialog } from "@/components/post-dialog";
 import {
   Sheet,
   SheetTrigger,
@@ -169,6 +170,26 @@ export default function Page() {
           <div className="flex flex-wrap gap-1">
             {RESUME_DATA.skills.map((skill) => {
               return <Badge key={skill}>{skill}</Badge>;
+            })}
+          </div>
+        </Section>
+
+        <Section>
+          <h2 className="text-xl font-bold">Writing</h2>
+          <div className="-mx-3 grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
+            {RESUME_DATA.posts.map((post) => {
+              // Create a slug from the title for use as an ID
+              const id = post.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+              return (
+                <div key={post.title}>
+                  <PostDialog 
+                    title={post.title}
+                    url={post.url}
+                    date={post.date}
+                    id={id}
+                  />
+                </div>
+              );
             })}
           </div>
         </Section>

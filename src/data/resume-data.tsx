@@ -1,5 +1,11 @@
 import { GitHubIcon, LinkedInIcon, XIcon } from "@/components/icons";
 
+interface Post {
+  title: string;
+  url: string;
+  date?: string;
+}
+
 export const RESUME_DATA = {
   name: "Kyle Voisard",
   initials: "KV",
@@ -151,5 +157,12 @@ export const RESUME_DATA = {
         href: "",
       },
     },
+  ],
+  posts: [
+    {
+      title: "Where Does This Go?",
+      url: "https://grapes-move-dqp.craft.me/0nDMkSG3T6DUl8",
+      date: "2025-04-10"
+    }
   ],
 } as const;
