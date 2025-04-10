@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { CommandMenu } from "@/components/command-menu";
 import { Metadata } from "next";
 import { Section } from "@/components/ui/section";
-import { GlobeIcon, MailIcon, PhoneIcon, ExternalLinkIcon, MoonIcon, SunIcon } from "lucide-react";
+import { GlobeIcon, MailIcon, PhoneIcon, ExternalLinkIcon, MoonIcon, SunIcon, BotIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { RESUME_DATA } from "@/data/resume-data";
 import { ProjectCard } from "@/components/project-card";
@@ -14,7 +14,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { AgentChat } from "@/components/ui/agent-chat";
-import { RocketIcon } from '@radix-ui/react-icons';
+// import { RocketIcon } from '@radix-ui/react-icons';
 import React, { Suspense } from 'react';
 import { ThemeToggle } from '@/components/theme-toggle';
 
@@ -219,7 +219,7 @@ export default function Page() {
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline" className="fixed bottom-4 right-4 z-50">
-            <RocketIcon />
+            <BotIcon className="h-4 w-4" />
           </Button>
         </SheetTrigger>
         <AgentChat />
