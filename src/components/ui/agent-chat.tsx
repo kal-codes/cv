@@ -29,7 +29,7 @@ export const AgentChat = () => {
             >
               <div
                 className={`inline-block p-2 rounded-lg ${
-                  m.role === 'user' ? 'bg-blue-100' : 'bg-gray-200'
+                  m.role === 'user' ? 'bg-primary/10 dark:bg-primary/20' : 'bg-muted dark:bg-muted/70'
                 }`}
               >
                 {m.role !== 'data' && m.content}
@@ -37,7 +37,7 @@ export const AgentChat = () => {
                   <>
                     {(m.data as any)?.description}
                     <br />
-                    <pre className="bg-gray-200 p-2 rounded">
+                    <pre className="bg-muted p-2 rounded">
                       {JSON.stringify(m.data, null, 2)}
                     </pre>
                   </>
@@ -46,7 +46,7 @@ export const AgentChat = () => {
             </div>
           ))}
           {status === 'in_progress' && (
-            <div className="text-left italic text-gray-500">
+            <div className="text-left italic text-muted-foreground">
               Agent is thinking…
             </div>
           )}

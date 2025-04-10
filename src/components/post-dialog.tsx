@@ -21,6 +21,7 @@ interface PostDialogProps {
 
 export function PostDialog({ title, url, date, id }: PostDialogProps) {
   const [open, setOpen] = useState(false);
+  const [iframeLoading, setIframeLoading] = useState(true);
   const router = useRouter();
   const searchParams = useSearchParams();
   
@@ -61,7 +62,7 @@ export function PostDialog({ title, url, date, id }: PostDialogProps) {
                 <div>
                   <h3 className="text-base font-medium">{title}</h3>
                   {date && (
-                    <div className="mt-1 text-xs tabular-nums text-gray-500">
+                    <div className="mt-1 text-xs tabular-nums text-muted-foreground">
                       {date}
                     </div>
                   )}
@@ -74,7 +75,7 @@ export function PostDialog({ title, url, date, id }: PostDialogProps) {
                     onClick={copyShareableLink}
                     title="Copy shareable link"
                   >
-                    <Share2Icon className="h-4 w-4 text-gray-400" />
+                    <Share2Icon className="h-4 w-4 text-muted-foreground/70" />
                   </Button>
                 </div>
               </div>
@@ -82,14 +83,20 @@ export function PostDialog({ title, url, date, id }: PostDialogProps) {
           </Card>
         </div>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[1000px] h-[90vh] p-0 overflow-hidden [&>button]:hidden">
+      <DialogContent className="sm:max-w-[1000px] h-[90vh] p-0 overflow-hidden [&>button]:hidden bg-background">
         {/* Visually hidden title for accessibility */}
         <DialogTitle className="sr-only">{title}</DialogTitle>
+        {iframeLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-background">
+            <div className="text-muted-foreground animate-pulse">Loading content...</div>
+          </div>
+        )}
         <iframe
           src={url}
-          className="w-full h-full border-none"
+          className="w-full h-full border-none bg-background"
           title={title}
           loading="lazy"
+          onLoad={() => setIframeLoading(false)}
           sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
         />
       </DialogContent>

@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { CommandMenu } from "@/components/command-menu";
 import { Metadata } from "next";
 import { Section } from "@/components/ui/section";
-import { GlobeIcon, MailIcon, PhoneIcon, ExternalLinkIcon } from "lucide-react";
+import { GlobeIcon, MailIcon, PhoneIcon, ExternalLinkIcon, MoonIcon, SunIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { RESUME_DATA } from "@/data/resume-data";
 import { ProjectCard } from "@/components/project-card";
@@ -16,6 +16,7 @@ import {
 import { AgentChat } from "@/components/ui/agent-chat";
 import { RocketIcon } from '@radix-ui/react-icons';
 import React, { Suspense } from 'react';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 export const metadata: Metadata = {
   title: `${RESUME_DATA.name} | ${RESUME_DATA.about}`,
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main className="container relative mx-auto scroll-my-12 overflow-auto p-4 print:p-12 md:p-16">
-      <section className="mx-auto w-full max-w-2xl space-y-8 bg-white print:space-y-6">
+      <section className="mx-auto w-full max-w-2xl space-y-8 bg-background print:space-y-6">
         <div className="flex items-center justify-between">
           <div className="flex-1 space-y-1.5">
             <h1 className="text-2xl font-bold">{RESUME_DATA.name}</h1>
@@ -80,6 +81,7 @@ export default function Page() {
                   </a>
                 </Button>
               ))}
+              <ThemeToggle />
             </div>
             <div className="hidden flex-col gap-x-1 font-mono text-sm text-muted-foreground print:flex">
               {RESUME_DATA.contact.email ? (
@@ -183,7 +185,7 @@ export default function Page() {
               const id = post.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
               return (
                 <div key={post.title}>
-                  <Suspense fallback={<div className="p-4 border rounded-lg">Loading post...</div>}>
+                  <Suspense fallback={<div className="p-4 border rounded-lg bg-muted/30">Loading post...</div>}>
                     <PostDialog 
                       title={post.title}
                       url={post.url}
